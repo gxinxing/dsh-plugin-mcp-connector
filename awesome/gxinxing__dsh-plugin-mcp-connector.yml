@@ -1,0 +1,5 @@
+url: https://github.com/gxinxing/dsh-plugin-mcp-connector
+name: gxinxing/dsh-plugin-mcp-connector
+category: tools
+description:
+  en: WebUI panel to manage MCP servers and register their tools in DeepSeek Harness.
