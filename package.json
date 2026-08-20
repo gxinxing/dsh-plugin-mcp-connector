@@ -1,7 +1,6 @@
 {
   "name": "dsh-plugin-mcp-connector",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "lib/host/index.mjs",
   "files": [
@@ -28,5 +27,19 @@
   "scripts": {
     "build": "tsdown",
     "watch": "tsdown --watch"
-  }
+  },
+  "description": "MCP connector plugin for DeepSeek Harness with WebUI management panel",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gxinxing/dsh-plugin-mcp-connector.git"
+  },
+  "homepage": "https://github.com/gxinxing/dsh-plugin-mcp-connector#readme",
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek",
+    "mcp",
+    "model-context-protocol"
+  ]
 }
