@@ -210,10 +210,11 @@ export default {
     }
 
     // Harness API for UI / automation
-    const handlers = new Map();
+    const handlers = new Map(); // method -> fn
+    const disposers = new Map(); // method -> dispose
     const register = (method, fn) => {
-      const dispose = ctx.harness.handle(method, fn);
-      handlers.set(method, dispose);
+      handlers.set(method, fn);
+      disposers.set(method, ctx.harness.handle(method, fn));
     };
 
     register("mcp/list-servers", async () => {
@@ -327,22 +328,22 @@ export default {
 
           try {
             if (pathname === "/api/servers") {
-              const result = await ctx.harness.handle("mcp/list-servers", {})();
+              const result = await handlers.get("mcp/list-servers")({});
               json(200, result);
             } else if (pathname === "/api/servers/add") {
-              const result = await ctx.harness.handle("mcp/add-server", body)();
+              const result = await handlers.get("mcp/add-server")(body);
               json(200, result);
             } else if (pathname === "/api/servers/remove") {
-              const result = await ctx.harness.handle("mcp/remove-server", body)();
+              const result = await handlers.get("mcp/remove-server")(body);
               json(200, result);
             } else if (pathname === "/api/servers/toggle") {
-              const result = await ctx.harness.handle("mcp/toggle-server", body)();
+              const result = await handlers.get("mcp/toggle-server")(body);
               json(200, result);
             } else if (pathname === "/api/servers/restart") {
-              const result = await ctx.harness.handle("mcp/restart-server", body)();
+              const result = await handlers.get("mcp/restart-server")(body);
               json(200, result);
             } else if (pathname === "/api/logs") {
-              const result = await ctx.harness.handle("mcp/get-logs", {})();
+              const result = await handlers.get("mcp/get-logs")({});
               json(200, result);
             } else {
               json(404, { error: "Not Found" });
@@ -362,7 +363,7 @@ export default {
     ctx.effect(() => {
       return async () => {
         disposeRoute();
-        for (const dispose of handlers.values()) dispose();
+        for (const dispose of disposers.values()) dispose();
         for (const instance of instances.values()) {
           try { await instance.stop(); } catch {}
         }
