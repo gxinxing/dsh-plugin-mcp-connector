@@ -1,0 +1,7 @@
+# MCP Connector bundle patch: mounts the host service that manages
+# MCP servers, auto-registers their tools, and serves the management UI.
+- insert:
+    - id: mcp-connector
+      name: dsh-plugin-mcp-connector
+      inject: [tools, subprocess, fs, harness, timer, webServer]
+      config: {}
