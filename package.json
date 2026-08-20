@@ -34,7 +34,7 @@
     "url": "git+https://github.com/gxinxing/dsh-plugin-mcp-connector.git"
   },
   "homepage": "https://github.com/gxinxing/dsh-plugin-mcp-connector#readme",
-  "author": "",
+  "author": "gxinxing",
   "license": "MIT",
   "keywords": [
     "dsh-plugin",
